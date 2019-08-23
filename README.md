@@ -112,7 +112,7 @@ Swoole Tracker: https://www.swoole-cloud.com/tracker.html
             'middlewares'    =>    [
                 …… // 你的其他中间件
                 \Imi\Server\TcpServer\Middleware\RouteMiddleware::class,
-                "SwooleTrackerWebSocketMiddleware", // 放在 RouteMiddlware 后
+                "SwooleTrackerTCPMiddleware", // 放在 RouteMiddlware 后
             ],
         ],
         'SwooleTrackerTCPMiddleware'  =>  [
@@ -141,7 +141,7 @@ Swoole Tracker: https://www.swoole-cloud.com/tracker.html
             'middlewares'    =>    [
                 …… // 你的其他中间件
                 \Imi\Server\UdpServer\Middleware\RouteMiddleware::class,
-                "SwooleTrackerTCPMiddleware", // 放在 RouteMiddlware 后
+                "SwooleTrackerUDPMiddleware", // 放在 RouteMiddlware 后
             ],
         ],
         'SwooleTrackerUDPMiddleware'  =>  [
