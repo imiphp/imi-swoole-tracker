@@ -57,13 +57,102 @@ Swoole Tracker: https://www.swoole-cloud.com/tracker.html
     'beans'    =>    [
         'HttpDispatcher'    =>    [
             'middlewares'    =>    [
-                'SwooleTrackerHttpMiddleware',
+                …… // 你的其他中间件
+                \Imi\Server\Http\Middleware\RouteMiddleware::class,
+                "SwooleTrackerHttpMiddleware", // 放在 RouteMiddlware 后
             ],
         ],
         'SwooleTrackerHttpMiddleware'   =>  [
             'serviceName'   => 'imi-http-example', // 服务名
-            'serverIp'      => null, // 服务器 IP，默认获取当前网卡 IP
-            'interface'     => null, // 网卡 interface 名，自动获取当前网卡IP时有效
+            // 'serverIp'      => null, // 服务器 IP，默认获取当前网卡 IP
+            // 'interface'     => null, // 网卡 interface 名，自动获取当前网卡IP时有效
+            // 'successStatusCode' => 200, // 成功的 Http 状态码
+        ],
+    ],
+];
+```
+
+### WebSocket 服务
+
+在服务器的 `config/config.php` 中配置：
+
+```php
+[
+    'beans'    =>    [
+        'WebSocketDispatcher'    =>    [
+            'middlewares'    =>    [
+                …… // 你的其他中间件
+                \Imi\Server\WebSocket\Middleware\RouteMiddleware::class,
+                "SwooleTrackerWebSocketMiddleware", // 放在 RouteMiddlware 后
+            ],
+        ],
+        'SwooleTrackerWebSocketMiddleware'  =>  [
+            'serviceName'       => 'imi-websocket-example', // 服务名
+            // 'serverIp'          => null, // 服务器 IP，默认获取当前网卡 IP
+            // 'interface'         => null, // 网卡 interface 名，自动获取当前网卡IP时有效
+            // 'successCode'       =>  500, // 当成功时上报的默认code
+            // 'exceptionCode'     =>  500, // 当发生异常时上报的默认code
+            // 指定获取请求方法名的参数，必须有
+            'nameHandler'       =>  function(\Imi\Server\WebSocket\Message\IFrame $frame){
+                return $frame->getFormatData()->action ?? 'unknown'; // 代码仅供参考
+            },
+        ],
+    ],
+];
+```
+
+### TCP 服务
+
+在服务器的 `config/config.php` 中配置：
+
+```php
+[
+    'beans'    =>    [
+        'TcpDispatcher'    =>    [
+            'middlewares'    =>    [
+                …… // 你的其他中间件
+                \Imi\Server\TcpServer\Middleware\RouteMiddleware::class,
+                "SwooleTrackerWebSocketMiddleware", // 放在 RouteMiddlware 后
+            ],
+        ],
+        'SwooleTrackerTCPMiddleware'  =>  [
+            'serviceName'       => 'imi-tcp-example', // 服务名
+            // 'serverIp'          => null, // 服务器 IP，默认获取当前网卡 IP
+            // 'interface'         => null, // 网卡 interface 名，自动获取当前网卡IP时有效
+            // 'successCode'       =>  500, // 当成功时上报的默认code
+            // 'exceptionCode'     =>  500, // 当发生异常时上报的默认code
+            // 指定获取请求方法名的参数，必须有
+            'nameHandler'       =>  function(\Imi\Server\TcpServer\Message\IReceiveData $data){
+                return $data->getFormatData()->action ?? 'unknown'; // 代码仅供参考
+            },
+        ],
+    ],
+];
+```
+
+### UDP 服务
+
+在服务器的 `config/config.php` 中配置：
+
+```php
+[
+    'beans'    =>    [
+        'UdpDispatcher'    =>    [
+            'middlewares'    =>    [
+                …… // 你的其他中间件
+                \Imi\Server\UdpServer\Middleware\RouteMiddleware::class,
+                "SwooleTrackerTCPMiddleware", // 放在 RouteMiddlware 后
+            ],
+        ],
+        'SwooleTrackerUDPMiddleware'  =>  [
+            'serviceName'       => 'imi-udp-example', // 服务名
+            // 'serverIp'          => null, // 服务器 IP，默认获取当前网卡 IP
+            // 'interface'         => null, // 网卡 interface 名，自动获取当前网卡IP时有效
+            // 'successCode'       =>  500, // 当成功时上报的默认code
+            // 'exceptionCode'     =>  500, // 当发生异常时上报的默认code
+            'nameHandler'       =>  function(\Imi\Server\UdpServer\Message\IPacketData $data){
+                return $data->getFormatData()->action ?? 'unknown'; // 代码仅供参考
+            },
         ],
     ],
 ];
