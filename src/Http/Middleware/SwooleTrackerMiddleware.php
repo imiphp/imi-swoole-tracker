@@ -24,7 +24,7 @@ class SwooleTrackerMiddleware extends BaseMiddleware implements MiddlewareInterf
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $tick = \StatsCenter::beforeExecRpc($request->getUri()->getPath(), $this->serviceName, $this->serverIp);
+        $tick = \SwooleTracker\Stats::beforeExecRpc($request->getUri()->getPath(), $this->serviceName, $this->serverIp);
         try {
             $success = $code = null;
             $response = $handler->handle($request);
@@ -52,7 +52,7 @@ class SwooleTrackerMiddleware extends BaseMiddleware implements MiddlewareInterf
                 {
                     $code = $success ? $this->successCode : $response->getStatusCode();
                 }
-                \StatsCenter::afterExecRpc($tick, $success, $code);
+                \SwooleTracker\Stats::afterExecRpc($tick, $success, $code);
             }
         }
     }

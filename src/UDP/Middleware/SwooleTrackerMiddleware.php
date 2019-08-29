@@ -33,7 +33,7 @@ class SwooleTrackerMiddleware extends BaseMiddleware implements IMiddleware
     public function process(IPacketData $data, IPacketHandler $handler)
     {
         $funcName = ($this->nameHandler)($data);
-        $tick = \StatsCenter::beforeExecRpc($funcName, $this->serviceName, $this->serverIp);
+        $tick = \SwooleTracker\Stats::beforeExecRpc($funcName, $this->serviceName, $this->serverIp);
         try {
             $success = $code = null;
             $result = $handler->handle($data);
@@ -61,7 +61,7 @@ class SwooleTrackerMiddleware extends BaseMiddleware implements IMiddleware
                 {
                     $code = $success ? $this->successCode : $this->exceptionCode;
                 }
-                \StatsCenter::afterExecRpc($tick, $success, $code);
+                \SwooleTracker\Stats::afterExecRpc($tick, $success, $code);
             }
         }
     }
