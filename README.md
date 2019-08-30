@@ -21,9 +21,19 @@ Swoole Tracker: https://www.swoole-cloud.com/tracker.html
 
 * 所有工具零部署成本，后台一键开启关闭各种检测，完美支持PHP7。
 
-## Composer
+## 无需依赖
 
-本项目可以使用composer安装，遵循psr-4自动加载规则，在你的 `composer.json` 中加入下面的内容:
+目前`Swoole Tracker`的`v2.5.0`版本支持自动生成应用名称并创建应用，无需修改任何代码，生成的应用名称格式为：
+
+`Swoole`的`HttpServer`：`ip:prot`
+
+其他的`Server`：`ip(hostname):prot`
+
+即安装好`swoole_tracker`扩展之后就可以正常使用`Swoole Tracker`的功能
+
+## 依赖组件
+
+当你需要自定义应用名称时则需要安装组件，本项目可以使用composer安装，遵循psr-4自动加载规则，在你的 `composer.json` 中加入下面的内容:
 
 ```json
 {
@@ -35,7 +45,7 @@ Swoole Tracker: https://www.swoole-cloud.com/tracker.html
 
 然后执行 `composer update` 安装。
 
-## 基本使用
+## 组件基本使用
 
 在项目 `config/config.php` 中配置：
 
