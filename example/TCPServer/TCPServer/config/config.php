@@ -5,14 +5,14 @@ declare(strict_types=1);
 use Imi\Server\TcpServer\Message\IReceiveData;
 
 return [
-    'configs'    => [
+    'configs'     => [
     ],
     // bean扫描目录
     'beanScan'    => [
         'Imi\SwooleTracker\Example\TCPServer\TCPServer\Controller',
     ],
-    'beans'    => [
-        'TcpDispatcher'    => [
+    'beans'       => [
+        'TcpDispatcher'               => [
             'middlewares'    => [
                 \Imi\Server\TcpServer\Middleware\RouteMiddleware::class,
                 'SwooleTrackerTCPMiddleware',
@@ -24,17 +24,15 @@ return [
             // 'interface'         => null, // 网卡 interface 名，自动获取当前网卡IP时有效
             // 'successCode'       =>  500, // 当成功时上报的默认code
             // 'exceptionCode'     =>  500, // 当发生异常时上报的默认code
-            'nameHandler'       => function (IReceiveData $data) {
-                return $data->getFormatData()->action ?? 'unknown';
-            },
+            'nameHandler'       => static fn (IReceiveData $data) => $data->getFormatData()->action ?? 'unknown',
         ],
-        'GroupRedis'    => [
+        'GroupRedis'                  => [
             'redisPool'    => 'redis',
         ],
-        'ServerGroup'   => [
+        'ServerGroup'                 => [
             'status'        => false,
         ],
-        'ConnectionContextRedis'    => [
+        'ConnectionContextRedis'      => [
             'redisPool' => 'redis',
             'lockId'    => 'redis',
         ],

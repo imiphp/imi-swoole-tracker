@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 return [
     // 项目根命名空间
-    'namespace'    => 'Imi\SwooleTracker\Example\HttpServer',
+    'namespace'         => 'Imi\SwooleTracker\Example\HttpServer',
 
     // 配置文件
-    'configs'    => [
+    'configs'           => [
         'beans'        => __DIR__ . '/beans.php',
     ],
 
     // 扫描目录
-    'beanScan'    => [
+    'beanScan'          => [
     ],
 
     // 组件命名空间
-    'components'    => [
+    'components'        => [
         'SwooleTracker'       => 'Imi\SwooleTracker',
     ],
 
     // 主服务器配置
-    'mainServer'    => [
+    'mainServer'        => [
         'namespace'    => 'Imi\SwooleTracker\Example\HttpServer\ApiServer',
         'type'         => Imi\Swoole\Server\Type::HTTP,
         'host'         => '127.0.0.1',
@@ -29,6 +29,7 @@ return [
         'configs'      => [
             'worker_num'        => 1,
             'task_worker_num'   => 0,
+            'max_wait_time'     => 30,
         ],
     ],
 
@@ -37,7 +38,7 @@ return [
     ],
 
     // 日志配置
-    'logger' => [
+    'logger'            => [
         'channels' => [
             'imi' => [
                 'handlers' => [
