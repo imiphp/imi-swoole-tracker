@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imi\SwooleTracker\Example\TCPServer\TCPServer\Controller;
 
 use Imi\Server\Route\Annotation\Tcp\TcpAction;
@@ -25,8 +27,8 @@ class IndexController extends \Imi\Controller\TcpController
      */
     public function send($data)
     {
-        $clientInfo = $this->server->getSwooleServer()->getClientInfo($this->data->getFd());
-        $message = '[' . ($clientInfo['remote_ip'] ?? '') . ':' . ($clientInfo['remote_port'] ?? '') . ']: ' . $data->message;
+        $address = $this->data->getClientAddress();
+        $message = '[' . $address->getAddress() . ':' . $address->getPort() . ']: ' . $data->message;
         var_dump($message);
 
         return [

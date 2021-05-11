@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Imi\Server\TcpServer\Message\IReceiveData;
 
 return [
@@ -32,7 +34,7 @@ return [
         'ServerGroup'   => [
             'status'        => false,
         ],
-        'ConnectContextRedis'    => [
+        'ConnectionContextRedis'    => [
             'redisPool' => 'redis',
             'lockId'    => 'redis',
         ],

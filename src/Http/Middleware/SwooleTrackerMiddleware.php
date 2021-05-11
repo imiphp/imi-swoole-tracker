@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Imi\SwooleTracker\Http\Middleware;
 
 use Imi\Bean\Annotation\Bean;
@@ -18,10 +20,8 @@ class SwooleTrackerMiddleware extends BaseMiddleware implements MiddlewareInterf
 {
     /**
      * 成功的 Http 状态码
-     *
-     * @var int
      */
-    protected $successStatusCode = StatusCode::OK;
+    protected int $successStatusCode = StatusCode::OK;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

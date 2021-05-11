@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     // 项目根命名空间
     'namespace'    => 'Imi\SwooleTracker\Example\WebSocketServer',
@@ -22,7 +24,7 @@ return [
     // 主服务器配置
     'mainServer'    => [
         'namespace'    => 'Imi\SwooleTracker\Example\WebSocketServer\MainServer',
-        'type'         => Imi\Server\Type::WEBSOCKET,
+        'type'         => Imi\Swoole\Server\Type::WEBSOCKET,
         'host'         => '127.0.0.1',
         'port'         => 13002,
         'configs'      => [
@@ -53,7 +55,7 @@ return [
             ],
             'async'    => [
                 'pool'    => [
-                    'class'        => \Imi\Redis\CoroutineRedisPool::class,
+                    'class'        => \Imi\Swoole\Redis\Pool\CoroutineRedisPool::class,
                     'config'       => [
                         'maxResources'    => 10,
                         'minResources'    => 0,
@@ -76,8 +78,8 @@ return [
 
     // 内存表配置
     'memoryTable'   => [
-        'connectContext'    => [
-            'class'  => \Imi\Server\ConnectContext\StoreHandler\MemoryTable\ConnectContextOption::class,
+        'ConnectionContext'    => [
+            'class'  => \Imi\Swoole\Server\ConnectionContext\StoreHandler\MemoryTable\ConnectionContextOption::class,
             'lockId' => 'atomic',
         ],
     ],
@@ -95,6 +97,41 @@ return [
                 'class'     => 'AtomicLock',
                 'options'   => [
                     'atomicName'    => 'atomic1',
+                ],
+            ],
+        ],
+    ],
+    // 日志配置
+    'logger' => [
+        'channels' => [
+            'imi' => [
+                'handlers' => [
+                    [
+                        'class'     => \Imi\Log\Handler\ConsoleHandler::class,
+                        'formatter' => [
+                            'class'     => \Imi\Log\Formatter\ConsoleLineFormatter::class,
+                            'construct' => [
+                                'format'                     => null,
+                                'dateFormat'                 => 'Y-m-d H:i:s',
+                                'allowInlineLineBreaks'      => true,
+                                'ignoreEmptyContextAndExtra' => true,
+                            ],
+                        ],
+                    ],
+                    [
+                        'class'     => \Monolog\Handler\RotatingFileHandler::class,
+                        'construct' => [
+                            'filename' => dirname(__DIR__) . '/.runtime/logs/log.log',
+                        ],
+                        'formatter' => [
+                            'class'     => \Monolog\Formatter\LineFormatter::class,
+                            'construct' => [
+                                'dateFormat'                 => 'Y-m-d H:i:s',
+                                'allowInlineLineBreaks'      => true,
+                                'ignoreEmptyContextAndExtra' => true,
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
