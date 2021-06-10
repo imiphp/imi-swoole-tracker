@@ -2,7 +2,7 @@
 
 [![Latest Version](https://img.shields.io/packagist/v/imiphp/imi-swoole-tracker.svg)](https://packagist.org/packages/imiphp/imi-swoole-tracker)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.1-brightgreen.svg)](https://secure.php.net/)
-[![Swoole Version](https://img.shields.io/badge/swoole-%3E=4.3.0-brightgreen.svg)](https://github.com/swoole/swoole-src)
+[![Swoole Version](https://img.shields.io/badge/swoole-%3E=4.4.0-brightgreen.svg)](https://github.com/swoole/swoole-src)
 [![IMI License](https://img.shields.io/github/license/imiphp/imi-swoole-tracker.svg)](https://github.com/imiphp/imi-swoole-tracker/blob/master/LICENSE)
 
 ## 介绍
@@ -20,6 +20,8 @@ Swoole Tracker: https://www.swoole-cloud.com/tracker.html
 * 自动抓取FPM、CLI进程数量，统计CPU、内存使用情况。
 
 * 所有工具零部署成本，后台一键开启关闭各种检测，完美支持PHP7。
+
+> 本仓库仅用于浏览，不接受 issue 和 Pull Requests，请前往：<https://github.com/imiphp/imi>
 
 ## Swoole Tracker
 
@@ -185,7 +187,7 @@ QQ群：17916227 [![点击加群](https://pub.idqqimg.com/wpa/images/group.png "
 
 - [PHP](https://php.net/) >= 7.1
 - [Composer](https://getcomposer.org/)
-- [Swoole](https://www.swoole.com/) >= 4.3.0
+- [Swoole](https://www.swoole.com/) >= 4.4.0
 
 ## 版权信息
 
@@ -193,6 +195,6 @@ QQ群：17916227 [![点击加群](https://pub.idqqimg.com/wpa/images/group.png "
 
 ## 捐赠
 
-<img src="https://raw.githubusercontent.com/imiphp/imi-swoole-tracker/master/res/pay.png"/>
+<img src="https://cdn.jsdelivr.net/gh/imiphp/imi@dev/res/pay.png"/>
 
 开源不求盈利，多少都是心意，生活不易，随缘随缘……
