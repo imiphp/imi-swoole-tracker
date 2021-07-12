@@ -1,6 +1,7 @@
 <?php
+
 return [
-    'beanScan'  =>  [
+    'beanScan'  => [
         'Imi\SwooleTracker\Http\Middleware',
         'Imi\SwooleTracker\WebSocket\Middleware',
         'Imi\SwooleTracker\TCP\Middleware',

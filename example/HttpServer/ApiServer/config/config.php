@@ -1,19 +1,20 @@
 <?php
+
 return [
-    'configs'    =>    [
+    'configs'    => [
     ],
     // bean扫描目录
-    'beanScan'    =>    [
+    'beanScan'    => [
         'Imi\SwooleTracker\Example\HttpServer\ApiServer\Controller',
     ],
-    'beans'    =>    [
-        'HttpDispatcher'    =>    [
-            'middlewares'    =>    [
+    'beans'    => [
+        'HttpDispatcher'    => [
+            'middlewares'    => [
                 \Imi\Server\Http\Middleware\RouteMiddleware::class,
                 'SwooleTrackerHttpMiddleware',
             ],
         ],
-        'SwooleTrackerHttpMiddleware'   =>  [
+        'SwooleTrackerHttpMiddleware'   => [
             'serviceName'       => 'imi-http-example', // 服务名
             // 'serverIp'          => null, // 服务器 IP，默认获取当前网卡 IP
             // 'interface'         => null, // 网卡 interface 名，自动获取当前网卡IP时有效

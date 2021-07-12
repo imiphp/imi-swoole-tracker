@@ -1,11 +1,11 @@
 <?php
+
 namespace Imi\SwooleTracker\Example\HttpServer\ApiServer\Controller;
 
 use Imi\Controller\HttpController;
-use Imi\Log\Log;
-use Imi\Server\Route\Annotation\Route;
 use Imi\Server\Route\Annotation\Action;
 use Imi\Server\Route\Annotation\Controller;
+use Imi\Server\Route\Annotation\Route;
 
 /**
  * @Controller("/")
@@ -16,7 +16,7 @@ class IndexController extends HttpController
      * @Action
      * @Route("/")
      *
-     * @return void
+     * @return mixed
      */
     public function index()
     {
@@ -32,5 +32,4 @@ class IndexController extends HttpController
     {
         throw new \RuntimeException('test gg');
     }
-
 }

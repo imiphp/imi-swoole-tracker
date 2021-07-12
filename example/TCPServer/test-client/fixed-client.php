@@ -1,8 +1,11 @@
 <?php
+
+use Swoole\Coroutine\Client;
+
 // EOF自动分包的客户端测试
 
-go(function(){
-    $client = new Swoole\Coroutine\Client(SWOOLE_SOCK_TCP);
+go(function () {
+    $client = new Client(\SWOOLE_SOCK_TCP);
 
     $client->set([
         'open_length_check'     => true,
@@ -13,7 +16,7 @@ go(function(){
     ]);
 
     // ------ 这里改成要连接的ip和端口 ------
-    if(!$client->connect('127.0.0.1', 8082, 3))
+    if (!$client->connect('127.0.0.1', 8082, 3))
     {
         throw new \RuntimeException("connect failed. Error: {$client->errCode}\n");
     }
@@ -24,7 +27,7 @@ go(function(){
     ]));
 
     $data = $client->recv();
-    if($data)
+    if ($data)
     {
         $data = json_decode(substr($data, 4));
         var_dump($data);
@@ -35,8 +38,14 @@ go(function(){
     }
 });
 
-function sendData($client, $data)
+/**
+ * @param mixed $data
+ *
+ * @return mixed
+ */
+function sendData(Client $client, $data)
 {
     $data = pack('N', strlen($data)) . $data;
+
     return $client->send($data);
 }

@@ -1,13 +1,14 @@
 <?php
+
 namespace Imi\SwooleTracker\UDP\Middleware;
 
-use RuntimeException;
-use Imi\RequestContext;
 use Imi\Bean\Annotation\Bean;
-use Imi\SwooleTracker\BaseMiddleware;
+use Imi\RequestContext;
 use Imi\Server\UdpServer\IPacketHandler;
 use Imi\Server\UdpServer\Message\IPacketData;
 use Imi\Server\UdpServer\Middleware\IMiddleware;
+use Imi\SwooleTracker\BaseMiddleware;
+use RuntimeException;
 
 /**
  * @Bean("SwooleTrackerUDPMiddleware")
@@ -15,55 +16,68 @@ use Imi\Server\UdpServer\Middleware\IMiddleware;
 class SwooleTrackerMiddleware extends BaseMiddleware implements IMiddleware
 {
     /**
-     * 获取当前调用方法名称回调
+     * 获取当前调用方法名称回调.
      *
      * @var callable
      */
     protected $nameHandler;
 
+    /**
+     * @return void
+     */
     public function __init()
     {
-        if(null === $this->nameHandler)
+        if (null === $this->nameHandler)
         {
-            throw new RuntimeException(sprintf('SwooleTrackerTCPMiddleware must be set beans: "nameHandler"'));
+            throw new RuntimeException('SwooleTrackerTCPMiddleware must be set beans: "nameHandler"');
         }
         parent::__init();
     }
 
+    /**
+     * @return mixed
+     */
     public function process(IPacketData $data, IPacketHandler $handler)
     {
         $funcName = ($this->nameHandler)($data);
+        // @phpstan-ignore-next-line
         $tick = \SwooleTracker\Stats::beforeExecRpc($funcName, $this->serviceName, $this->serverIp);
-        try {
+        try
+        {
             $success = $code = null;
             $result = $handler->handle($data);
+
             return $result;
-        } catch(\Throwable $th) {
+        }
+        catch (\Throwable $th)
+        {
             $success = false;
             $code = $this->exceptionCode;
             throw $th;
-        } finally {
-            if($tick)
+        }
+        finally
+        {
+            if ($tick)
             {
-                if(null === $success)
+                if (null === $success)
                 {
                     $success = RequestContext::get('imi.tracker.success');
                 }
-                if(null === $success)
+                if (null === $success)
                 {
                     $success = true;
                 }
-                if(null === $code)
+                if (null === $code)
                 {
                     $code = RequestContext::get('imi.tracker.code');
                 }
-                if(null === $code)
+                if (null === $code)
                 {
                     $code = $success ? $this->successCode : $this->exceptionCode;
                 }
+                // @phpstan-ignore-next-line
                 \SwooleTracker\Stats::afterExecRpc($tick, $success, $code);
             }
         }
     }
-
 }

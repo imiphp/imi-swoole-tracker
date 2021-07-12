@@ -1,31 +1,32 @@
 <?php
+
 return [
     // 项目根命名空间
-    'namespace'    =>    'Imi\SwooleTracker\Example\TCPServer',
+    'namespace'    => 'Imi\SwooleTracker\Example\TCPServer',
 
     // 配置文件
-    'configs'    =>    [
-        'beans'        =>    __DIR__ . '/beans.php',
+    'configs'    => [
+        'beans'        => __DIR__ . '/beans.php',
     ],
 
     // 扫描目录
-    'beanScan'    =>    [
+    'beanScan'    => [
         'Imi\SwooleTracker\Example\TCPServer\Listener',
         'Imi\SwooleTracker\Example\TCPServer\Task',
     ],
 
     // 组件命名空间
-    'components'    =>  [
-        'SwooleTracker'       =>  'Imi\SwooleTracker',
+    'components'    => [
+        'SwooleTracker'       => 'Imi\SwooleTracker',
     ],
 
     // 主服务器配置
-    'mainServer'    =>    [
-        'namespace'    =>    'Imi\SwooleTracker\Example\TCPServer\TCPServer',
-        'type'        =>    Imi\Server\Type::TCP_SERVER,
-        'host'        =>    '127.0.0.1',
-        'port'        =>    8082,
-        'configs'    =>    [
+    'mainServer'    => [
+        'namespace'    => 'Imi\SwooleTracker\Example\TCPServer\TCPServer',
+        'type'         => Imi\Server\Type::TCP_SERVER,
+        'host'         => '127.0.0.1',
+        'port'         => 8082,
+        'configs'      => [
             // 'worker_num'        =>  8,
             // 'task_worker_num'   =>  16,
 
@@ -50,7 +51,7 @@ return [
     ],
 
     // 子服务器（端口监听）配置
-    'subServers'        =>    [
+    'subServers'        => [
         // 'SubServerName'   =>  [
         //     'namespace'    =>    'Imi\SwooleTracker\Example\TCPServer\XXXServer',
         //     'type'        =>    Imi\Server\Type::HTTP,
@@ -60,7 +61,7 @@ return [
     ],
 
     // 连接池配置
-    'pools'    =>    [
+    'pools'    => [
         // 主数据库
         // 'maindb'    =>    [
         //     // 同步池子
@@ -100,52 +101,52 @@ return [
         //         ],
         //     ]
         // ],
-        'redis'    =>    [
-            'sync'    =>    [
-                'pool'    =>    [
-                    'class'        =>    \Imi\Redis\SyncRedisPool::class,
-                    'config'    =>    [
-                        'maxResources'    =>    10,
-                        'minResources'    =>    0,
+        'redis'    => [
+            'sync'    => [
+                'pool'    => [
+                    'class'        => \Imi\Redis\SyncRedisPool::class,
+                    'config'       => [
+                        'maxResources'    => 10,
+                        'minResources'    => 0,
                     ],
                 ],
-                'resource'    =>    [
-                    'host'      => '127.0.0.1',
+                'resource'    => [
+                    'host'      => imiGetEnv('REDIS_SERVER_HOST', '127.0.0.1'),
                     'port'      => 6379,
                     'password'  => null,
-                ]
+                ],
             ],
-            'async'    =>    [
-                'pool'    =>    [
-                    'class'        =>    \Imi\Redis\CoroutineRedisPool::class,
-                    'config'    =>    [
-                        'maxResources'    =>    10,
-                        'minResources'    =>    0,
+            'async'    => [
+                'pool'    => [
+                    'class'        => \Imi\Redis\CoroutineRedisPool::class,
+                    'config'       => [
+                        'maxResources'    => 10,
+                        'minResources'    => 0,
                     ],
                 ],
-                'resource'    =>    [
-                    'host'      => '127.0.0.1',
+                'resource'    => [
+                    'host'      => imiGetEnv('REDIS_SERVER_HOST', '127.0.0.1'),
                     'port'      => 6379,
                     'password'  => null,
-                ]
+                ],
             ],
         ],
     ],
 
     // 数据库配置
-    'db'    =>    [
+    'db'    => [
         // 数默认连接池名
-        'defaultPool'    =>    'maindb',
+        'defaultPool'    => 'maindb',
     ],
 
     // redis 配置
-    'redis' =>  [
+    'redis' => [
         // 数默认连接池名
-        'defaultPool'   =>  'redis',
+        'defaultPool'   => 'redis',
     ],
 
     // 内存表配置
-    'memoryTable'   =>  [
+    'memoryTable'   => [
         // 't1'    =>  [
         //     'columns'   =>  [
         //         ['name' => 'name', 'type' => \Swoole\Table::TYPE_STRING, 'size' => 16],
@@ -156,19 +157,19 @@ return [
     ],
 
     // 锁
-    'lock'  =>[
-        'list'  =>  [
-            'redis' =>  [
-                'class' =>  'RedisLock',
-                'options'   =>  [
-                    'poolName'  =>  'redis',
+    'lock'  => [
+        'list'  => [
+            'redis' => [
+                'class'     => 'RedisLock',
+                'options'   => [
+                    'poolName'  => 'redis',
                 ],
             ],
-        ]
+        ],
     ],
 
     // atmoic 配置
-    'atomics'    =>  [
+    'atomics'    => [
         // 'atomicLock'   =>  1,
     ],
 ];

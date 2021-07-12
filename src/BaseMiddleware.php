@@ -1,17 +1,18 @@
 <?php
+
 namespace Imi\SwooleTracker;
 
 abstract class BaseMiddleware
 {
     /**
-     * 服务名
+     * 服务名.
      *
      * @var string
      */
     protected $serviceName = 'imi';
 
     /**
-     * 服务器 IP，默认获取当前网卡 IP
+     * 服务器 IP，默认获取当前网卡 IP.
      *
      * @var string
      */
@@ -19,51 +20,54 @@ abstract class BaseMiddleware
 
     /**
      * 网卡 interface 名
-     * 自动获取当前网卡IP时有效
+     * 自动获取当前网卡IP时有效.
      *
      * @var string
      */
     protected $interface;
 
     /**
-     * 当成功时上报的默认code
+     * 当成功时上报的默认code.
      *
-     * @var integer
+     * @var int
      */
     protected $successCode = 0;
 
     /**
-     * 当发生异常时上报的默认code
+     * 当发生异常时上报的默认code.
      *
-     * @var integer
+     * @var int
      */
     protected $exceptionCode = 500;
 
+    /**
+     * @return void
+     */
     public function __init()
     {
-        if(null === $this->serverIp)
+        if (null === $this->serverIp)
         {
-            $this->serverIp = $this->getLocalIP($this->interface);
+            $this->serverIp = $this->getLocalIP();
         }
     }
 
     /**
-     * 获取本机IP
+     * 获取本机IP.
      *
      * @return string
      */
     protected function getLocalIP()
     {
-        $list = \swoole_get_local_ip();
-        if($this->interface)
+        $list = swoole_get_local_ip();
+        if ($this->interface)
         {
-            $ip = $list[$this->interface] ?? null;
+            return $list[$this->interface] ?? null;
         }
-        if(!$this->serverIp)
+        if (!$this->serverIp)
         {
-            $ip = current($list);
+            return current($list);
         }
-        return $ip;
-    }
 
+        return '';
+    }
 }
